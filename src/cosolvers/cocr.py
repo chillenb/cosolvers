@@ -92,41 +92,41 @@ def cocr(A, b, x0=None, *, rtol=1e-5, atol=0., maxiter=None, M=None, callback=No
     rhotol = np.finfo(x.dtype.char).eps**2
 
     # Dummy values to initialize vars, silence linter warnings
-    r_ar_prev, r_ar = None, None
+    w_aw_prev, w_aw = None, None
 
     x = x.copy()
     r = b - matvec(x) if x.any() else b.copy()
     w = psolve(r)
     beta = 0.0
     p_prev = np.zeros_like(b)
-    ap_prev = np.zeros_like(b)
+    u_prev = np.zeros_like(b)
 
     for iteration in range(maxiter):
-        ar = matvec(r)
-        r_ar = bilinearprod(r, ar)
+        aw = matvec(w)
+        w_aw = bilinearprod(w, aw)
         if iteration > 0:
-            beta = r_ar / r_ar_prev
+            beta = w_aw / w_aw_prev
 
-        p = r + beta * p_prev
-        u = ar + beta * ap_prev
+        p = w + beta * p_prev
+        u = aw + beta * u_prev
         psolve_u = psolve(u)
 
-        alpha = r_ar / bilinearprod(u, psolve_u)
+        alpha = w_aw / bilinearprod(u, psolve_u)
 
         if np.isclose(alpha, 0.0, rhotol) or np.isnan(alpha):
             # Failure, quit
             return postprocess(x), -1
 
         x = x + alpha * p
-        r = r - alpha * u
+        w = w - alpha * psolve_u
 
-        err = np.linalg.norm(r)
+        err = np.linalg.norm(u)
         if err < atol:
             return postprocess(x), 0
 
         p_prev = p
-        ap_prev = u
-        r_ar_prev = r_ar
+        u_prev = u
+        w_aw_prev = w_aw
         if callback:
             callback(x)
 

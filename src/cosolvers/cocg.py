@@ -106,8 +106,7 @@ def cocg(A, b, x0=None, *, rtol=1e-5, atol=0., maxiter=None, M=None, callback=No
         u = matvec(p)
         mu = bilinearprod(u, p)
 
-        if np.isclose(mu, 0.0, rhotol):
-            # Failure, quit
+        if np.abs(mu) < rhotol:
             return postprocess(x), -1
 
         alpha = rho / mu
@@ -121,7 +120,6 @@ def cocg(A, b, x0=None, *, rtol=1e-5, atol=0., maxiter=None, M=None, callback=No
         w = psolve(v)
         rho_next = bilinearprod(v, w)
         if np.abs(rho_next) < rhotol:
-            # Failure, quit
             return postprocess(x), -1
         beta = rho_next / rho
 
