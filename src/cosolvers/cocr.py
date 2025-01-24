@@ -67,8 +67,12 @@ def cocr(A, b, x0=None, *, rtol=1e-5, atol=0., maxiter=None, M=None, callback=No
 
     References
     ----------
-    .. [1] "Preconditioner", Wikipedia, 
-           https://en.wikipedia.org/wiki/Preconditioner
+    .. [1] Tomohiro Sogabe, Shao-Liang Zhang,
+           A COCR method for solving complex symmetric linear systems,
+           Journal of Computational and Applied Mathematics,
+           Volume 199, Issue 2, 2007, Pages 297-303, ISSN 0377-0427,
+           https://doi.org/10.1016/j.cam.2005.07.032. 
+    .. [2] https://en.wikipedia.org/wiki/Conjugate_residual_method#Preconditioning
     """
     A, M, x, b, postprocess = make_system(A, M, x0, b)
     bnrm2 = np.linalg.norm(b)

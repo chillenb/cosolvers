@@ -67,8 +67,10 @@ def cocg(A, b, x0=None, *, rtol=1e-5, atol=0., maxiter=None, M=None, callback=No
 
     References
     ----------
-    .. [1] "Preconditioner", Wikipedia, 
-           https://en.wikipedia.org/wiki/Preconditioner
+    .. [1] H. A. van der Vorst and J. B. M. Melissen,
+           "A Petrov-Galerkin type method for solving Axk=b,
+           where A is symmetric complex," in IEEE Transactions on Magnetics,
+           vol. 26, no. 2, pp. 706-708, March 1990, doi: 10.1109/20.106415.
     """
     A, M, x, b, postprocess = make_system(A, M, x0, b)
     bnrm2 = np.linalg.norm(b)
