@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.sparse.linalg import LinearOperator
-from cosolvers.cocg import cocg
+from cosolvers import cocg
 
 class Counter:
     def __init__(self):

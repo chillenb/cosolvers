@@ -8,7 +8,7 @@ dynamic = ["version"]
 description = 'COCR and COCG methods for solving complex symmetric linear systems'
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT"
+license = "BSD-3-Clause"
 keywords = []
 authors = [
   { name = "Christopher Hillenbrand", email = "chillenbrand15@gmail.com" },
